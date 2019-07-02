@@ -1,0 +1,75 @@
+
+
+body {
+  background: url("https://images.unsplash.com/flagged/photo-1556669546-b1f29875df1c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2700&q=80") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  margin: 0 auto;
+  color: #fff;
+}
+
+.humidity, .wind, .wind-degree {
+  border-top: 1px solid #fff;
+  border-bottom: 1px dotted #fff;
+  border-radius: 30px;
+  font-size: 1.1rem;
+}
+
+.hero {
+  position: fixed;
+  min-height: 100vh;
+  min-width: 100vw;
+  background-color: rgba(33, 91, 106, 0.5);
+}
+
+.date {
+    color: #fff;
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+
+.navbar-brand {
+  font-size: 50px;
+  padding: 10px;
+}
+
+.navbar a {
+  font-size: 50px;
+  font-family: 'DM Serif Display', serif;
+  width: 100%;
+
+}
+
+.footer {
+  background-color: #393e46;
+  font-family: 'DM Serif Display', serif;
+  font-size: 60%;
+  color: #fff;
+  position: fixed;
+  text-align: center;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 20px;
+}
+
+.weather {
+  border: 1px solid #fff;
+  margin-top: 5rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border-radius: 20px;
+}
+
+#iconDesc {
+  font-size: 2.9rem;
+}
+#iconThermometer {
+  font-size: 2.5rem;
+}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- stylesheet CSS and bootstrap -->
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Google font path -->
+    <link href="https://fonts.googleapis.com/css?family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+      <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0-11/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.10/css/weather-icons.css">
+
+    <title>Weather App</title>
+
+    <!-- Navbar  -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark container-fluid">
+      <a class="navbar-brand" href="#"><i class="fa fa-cloud-sun"></i><strong>Local</strong><em>Weather</em></a>
+
+      <p class="date py-4 px-4 "> 12:00 PM | Aug. 8, 2019</p>
+    </nav>
+  </head>
+
+  <body>
+
+    <div class="hero container-fluid py-3 px-3">
+
+<!-- Weather section -->
+      <div class="row">
+        <div class="col-8 weather mx-auto">
+
+        <!-- weather-head -->
+          <div class="weather-head">
+              <h1 name="location" value="location" id="location" class="text-center py-3"> <%= cityName %>, <%= country %>  </h1>
+
+            <div class="row">
+
+              <div id="description" class="description col text-center border border-secondary rounded py-3">
+                <i id="iconDesc" class="wi wi-owm-<%=weatherId%> pt-4"></i>
+                <!-- <img class="display-3" src="http://openweathermap.org/img/wn/<%=weatherIcon%>@2x.png" alt="weather-icon"> -->
+                <h3 class="text-center pb-2"> <%= description %> </h3>
+              </div>
+
+              <div id="temperature" class="col text-center pt-5 border border-secondary rounded">
+                <h2> <%= temp %> &degC <i id="iconThermometer" class="fas fa-thermometer-three-quarters"></i></h2>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- weather-body -->
+          <div class="weather-body py-3">
+
+            <div class="row">
+              <div class="humidity col text-center">
+                <i class="wi wi-raindrops"></i>
+                <span>Humidity</span>
+              </div>
+
+              <div class="wind col text-center">
+                <i class="wi wi-strong-wind"></i>
+                <span>Wind Speed</span>
+              </div>
+
+              <div class="wind-degree col text-center">
+                <i class="wi wi-direction-up-right"></i>
+                <span>Wind Degree</span>
+              </div>
+            </div>
+
+            <!-- weather-body data -->
+            <div class="row pt-2">
+              <div class="humidity-data col text-center">
+                <p class="pt-3"> <%= humidity %> %</p>
+              </div>
+
+              <div class="wind-data col text-center">
+                <p class="pt-3"> <%= windSpeed %> m/s</p>
+              </div>
+
+              <div class="wind-degree-data col text-center">
+                <p class="pt-3"> <%= windDegree %> &deg</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+
+
+    <div class="background-img text-center text-light fixed-bottom py-5">
+      <p>Image: Moraine Lake, Lake Louise, Alberta, Canada <br> courtesy of <a class="text-light"  href="https://www.instagram.com/chiditty/" target="_blank">Chi Liu<i class="fab fa-instagram"></i></a></p>
+    </div>
+    </div>
+
+
+
+
+    <footer class="footer">
+        <div class="container">
+          <p> By Farshad, with 🤍</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS tags -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
