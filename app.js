@@ -16,6 +16,7 @@ app.use(express.static("public"));
 
 app.get("/", function(req, res){
 
+//getting location of user by IP Address
   request("https://ipinfo.io/json", function(error, response, body){
 
       let ipInfo = JSON.parse(body);
@@ -25,6 +26,7 @@ app.get("/", function(req, res){
       let lat = lonLat.split(",")[0];
       let lon = lonLat.split(",")[1];
 
+//using the IP address to get the weather
     let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.API_KEY}`;
 
     request(weatherUrl, function(error, response, body){
@@ -39,7 +41,10 @@ app.get("/", function(req, res){
       let windSpeed = weatherInfo.wind.speed;
       let windDegree = weatherInfo.wind.deg;
 
+//rendering date at the top of the page:
       let date = new Date();
+      let options = {weekday: "short", year: "numeric", month: "short", hour: "numeric", minute: "numeric"};
+      let today = date.toLocaleDateString("en-US", options);
 
       res.render("index", {
         cityName: cityName ,
@@ -50,7 +55,8 @@ app.get("/", function(req, res){
         windDegree: windDegree,
         description: description,
         weatherId: weatherId,
-        weatherIcon: weatherIcon
+        weatherIcon: weatherIcon,
+        today: today
       });
     });
   });

@@ -18,9 +18,9 @@
 
     <!-- Navbar  -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark container-fluid">
-      <a class="navbar-brand" href="#"><i class="fa fa-cloud-sun"></i><strong>Local</strong><em>Weather</em></a>
+      <a class="navbar-brand" href="#"><i class="fa fa-cloud-sun"></i><strong> Local</strong><em>Weather</em></a>
 
-      <p class="date py-4 px-4 "> 12:00 PM | Aug. 8, 2019</p>
+      <p class="date py-4 px-4 font-weight-bold"><%= today %></p>
     </nav>
   </head>
 
@@ -34,14 +34,14 @@
 
         <!-- weather-head -->
           <div class="weather-head">
-              <h1 name="location" value="location" id="location" class="text-center py-3"> <%= cityName %>, <%= country %>  </h1>
+              <h1 name="location" value="location" id="location" class="text-center py-3 font-weight-bold"> <%= cityName %>, <%= country %>  </h1>
 
             <div class="row">
 
               <div id="description" class="description col text-center border border-secondary rounded py-3">
                 <i id="iconDesc" class="wi wi-owm-<%=weatherId%> pt-4"></i>
                 <!-- <img class="display-3" src="http://openweathermap.org/img/wn/<%=weatherIcon%>@2x.png" alt="weather-icon"> -->
-                <h3 class="text-center pb-2"> <%= description %> </h3>
+                <h3 class="text-center py-2"> <%= description %> </h3>
               </div>
 
               <div id="temperature" class="col text-center pt-5 border border-secondary rounded">
@@ -75,15 +75,15 @@
             <!-- weather-body data -->
             <div class="row pt-2">
               <div class="humidity-data col text-center">
-                <p class="pt-3"> <%= humidity %> %</p>
+                <p class="pt-3 font-weight-bold"> <%= humidity %> %</p>
               </div>
 
               <div class="wind-data col text-center">
-                <p class="pt-3"> <%= windSpeed %> m/s</p>
+                <p class="pt-3 font-weight-bold"> <%= windSpeed %> m/s</p>
               </div>
 
               <div class="wind-degree-data col text-center">
-                <p class="pt-3"> <%= windDegree %> &deg</p>
+                <p class="pt-3 font-weight-bold"> <%= windDegree %> &deg</p>
               </div>
             </div>
           </div>
