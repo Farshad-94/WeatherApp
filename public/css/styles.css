@@ -1,5 +1,4 @@
 
-
 body {
   background: url("https://images.unsplash.com/flagged/photo-1556669546-b1f29875df1c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2700&q=80") no-repeat center center fixed;
   -webkit-background-size: cover;
@@ -8,7 +7,7 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  min-height: 100vh;
+  min-height: auto;
   margin: 0 auto;
   color: #fff;
 }
@@ -20,48 +19,48 @@ body {
   font-size: 1.1rem;
 }
 
-.hero {
-  position: fixed;
-  min-height: 100vh;
-  min-width: 100vw;
-  background-color: rgba(33, 91, 106, 0.5);
-}
 
 .date {
     color: #fff;
-    position: fixed;
+    position: absolute;
     top: 0;
     right: 0;
 }
 
 .navbar-brand {
-  font-size: 50px;
+  font-size: 40px;
   padding: 10px;
 }
 
 .navbar a {
-  font-size: 50px;
+  font-size: 40px;
   font-family: 'DM Serif Display', serif;
-  width: 100%;
-
+  /* width: 100%; */
 }
 
 .footer {
   background-color: #393e46;
   font-family: 'DM Serif Display', serif;
-  font-size: 60%;
+  font-size: 65%;
   color: #fff;
-  position: fixed;
   text-align: center;
-  left: 0;
   bottom: 0;
+  left: 0;
   width: 100%;
-  padding: 20px;
+  padding: 10px;
 }
 
 .weather {
   border: 1px solid #fff;
-  margin-top: 5rem;
+  margin-top: 1rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border-radius: 20px;
+}
+
+.add-city {
+  border: 1px solid #fff;
+  margin-top: 1rem;
   background-color: rgba(0, 0, 0, 0.5);
   color: #fff;
   border-radius: 20px;
@@ -73,3 +72,11 @@ body {
 #iconThermometer {
   font-size: 2.5rem;
 }
+
+@media (min-width: 544px) {
+    .date {font-size: 12px;}
+  }
+
+@media (min-width: 768px) {
+    .date {font-size: 20px;}
+  }

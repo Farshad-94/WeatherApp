@@ -39,11 +39,11 @@ app.get("/", function(req, res){
       let temp = Math.round((weatherInfo.main.temp)-273.15);
       let humidity = weatherInfo.main.humidity;
       let windSpeed = weatherInfo.wind.speed;
-      let windDegree = weatherInfo.wind.deg;
+      let windDegree = Math.round(weatherInfo.wind.deg);
 
 //rendering date at the top of the page:
       let date = new Date();
-      let options = {weekday: "short", year: "numeric", month: "short", hour: "numeric", minute: "numeric"};
+      let options = {day: "numeric", weekday: "short", year: "numeric", month: "short", hour: "numeric", minute: "numeric"};
       let today = date.toLocaleDateString("en-US", options);
 
       res.render("index", {
