@@ -1,61 +1,74 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Local Weather</title>
 
-    <!-- stylesheet- CSS and bootstrap -->
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!-- Google fonts -->
-    <link href="https://fonts.googleapis.com/css?family=DM+Serif+Display&display=swap" rel="stylesheet">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Local Weather</title>
 
-      <!-- Font Awesome CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0-11/css/all.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.10/css/weather-icons.css">
+  <!-- stylesheet- CSS and bootstrap -->
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- Google fonts -->
+  <link href="https://fonts.googleapis.com/css?family=DM+Serif+Display&display=swap" rel="stylesheet">
 
-    <!-- Bootstrap JS tags -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0-11/css/all.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.10/css/weather-icons.css">
 
-
-  </head>
+  <!-- Bootstrap JS tags -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 
-  <body>
-    <!-- Navbar  -->
-    <nav class="navbar navbar-dark bg-dark">
-      <a class="navbar-brand" href="/"><i class="fa fa-cloud-sun"></i><strong> Local</strong><em>Weather</em></a>
-      <ul class="navbar-nav ml-auto">
-        <p class="nav-item date py-4 px-4 font-weight-bold"><%= today %></p>
-      </ul>
-    </nav>
+</head>
 
-<!-- main body of app -->
-    <div class="container-fluid">
 
-      <h1 class="text-white pt-4 text-center"> Current weather at your current location:</h1>
+<body>
+  <!-- Navbar  -->
+  <nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="/"><i class="fa fa-cloud-sun"></i><strong> Local</strong><em>Weather</em></a>
+    <ul class="navbar-nav ml-auto">
+      <p class="nav-item date py-4 px-4 font-weight-bold"><%= today %></p>
+    </ul>
+  </nav>
 
-<!-- Weather section -->
+  <!-- main body of app -->
+  <div class="container-fluid">
+
+    <!-- "add city" section -->
+    <div class="row px-5 py-2">
+      <div class="add-city col-lg-6 col-md-8 col-sm-12 mx-auto">
+
+        <form action="/" method="post">
+          <div class="form-group my-2 mx-2 row text-center">
+            <input class="text-light form-control-plaintext col-8 border border-secondary rounded" type="text" name="" value="" placeholder="Enter City Name">
+            <button class="btn btn-dark rounded col-3 rounded ml-2" type="submit" name="city">Add City</button>
+          </div>
+        </form>
+
+      </div>
+
+      <!-- Weather section -->
       <div class="row px-5">
-        <div class="col-lg-6 col-md-8 col-sm-12 weather mx-auto">
 
-        <!-- weather-head -->
+        <% for (weather of weatherData) { %>
+        <div class="col-lg-6 col-md-8 col-sm-12 weather mx-auto">
+          <!-- weather-head -->
           <div class="weather-head">
-              <h1 name="location" value="location" id="location" class="text-center py-2 font-weight-bold"> <%= cityName %>, <%= country %>  </h1>
+            <h1 name="location" value="location" id="location" class="text-center py-2 font-weight-bold"> <%= weather.cityName %>, <%= weather.country %> </h1>
 
             <div class="row">
 
               <div id="description" class="description col text-center border border-secondary rounded py-3">
-                <i id="iconDesc" class="wi wi-owm-<%=weatherId%> pt-4"></i>
-                <!-- <img class="display-3" src="http://openweathermap.org/img/wn/<%=weatherIcon%>@2x.png" alt="weather-icon"> -->
-                <h3 class="text-center py-2"> <%= description %> </h3>
+                <i id="iconDesc" class="wi wi-owm-<%=weather.weatherId%> pt-4"></i>
+                <!-- <img class="display-3" src="http://openweathermap.org/img/wn/<%=weather.weatherIcon%>@2x.png" alt="weather-icon"> -->
+                <h3 class="text-center py-2"> <%= weather.description %> </h3>
               </div>
 
               <div id="temperature" class="col text-center pt-5 border border-secondary rounded">
-                <h2> <%= temp %> &degC <i id="iconThermometer" class="fas fa-thermometer-three-quarters"></i></h2>
+                <h2> <%= weather.temp %> &degC <i id="iconThermometer" class="fas fa-thermometer-three-quarters"></i></h2>
               </div>
 
             </div>
@@ -85,45 +98,35 @@
             <!-- weather-body data -->
             <div class="row pt-1">
               <div class="humidity-data col text-center">
-                <p class="pt-3 font-weight-bold"> <%= humidity %> %</p>
+                <p class="pt-3 font-weight-bold"> <%= weather.humidity %> %</p>
               </div>
 
               <div class="wind-data col text-center">
-                <p class="pt-3 font-weight-bold"> <%= windSpeed %> m/s</p>
+                <p class="pt-3 font-weight-bold"> <%= weather.windSpeed %> m/s</p>
               </div>
 
               <div class="wind-degree-data col text-center">
-                <p class="pt-3 font-weight-bold"> <%= windDegree %> &deg</p>
+                <p class="pt-3 font-weight-bold"> <%= weather.windDegree %> &deg</p>
               </div>
             </div>
           </div>
-
         </div>
+        <% } %>
       </div>
 
-<!-- "add city" section -->
-      <div class="row px-5 py-2">
-        <div class="add-city col-lg-6 col-md-8 col-sm-12 mx-auto">
-
-            <form action="/" method="post">
-              <div class="form-group my-2 mx-2 row text-center">
-                <input class="text-light form-control-plaintext col-8 border border-secondary rounded" type="text" name="" value="" placeholder="Enter City Name">
-                <button class="btn btn-dark rounded col-3 rounded ml-2" type="submit" name="city">Add City</button>
-              </div>
-            </form>
-
-        </div>
-      </div>
 
     </div>
 
-    <footer class="footer">
-      <div class="container-fluid">
-          <p>Backgroud image: Moraine Lake, Lake Louise, Alberta, Canada <br> courtesy of <a class="text-light font-italic"  href="https://www.instagram.com/chiditty/" target="_blank">Chi Liu <i class="fab fa-instagram"></i></a></p>
-          <p> By Farshad, with 🤍</p>
-      </div>
-    </footer>
+  </div>
+
+  <footer class="footer">
+    <div class="container-fluid">
+      <p>Backgroud image: Moraine Lake, Lake Louise, Alberta, Canada <br> courtesy of <a class="text-light font-italic" href="https://www.instagram.com/chiditty/" target="_blank">Chi Liu <i class="fab fa-instagram"></i></a></p>
+      <p> By Farshad, with 🤍</p>
+    </div>
+  </footer>
 
 
-  </body>
+</body>
+
 </html>

@@ -33,6 +33,34 @@ const City = mongoose.model("City", citySchema);
 //toronto.save();
 //london.save();
 
+async function getWeather(cities) {
+  let weatherData = [];
+
+  for (let city_obj of cities){
+    let city = city_obj.name;
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.API_KEY}`;
+
+      let responseBody = await request(url);
+      let weatherJson = JSON.parse(responseBody);
+
+      let weather = {
+        cityName: city,
+        country: weatherJson.sys.country,
+        description: weatherJson.weather[0].description,
+        weatherId: weatherJson.weather[0].id,
+        weatherIcon: weatherJson.weather[0].icon,
+        temp: Math.round((weatherJson.main.temp) - 273.15),
+        humidity: weatherJson.main.humidity,
+        windSpeed: weatherJson.wind.speed,
+        windDegree: Math.round(weatherJson.wind.deg)
+      };
+      weatherData.push(weather);
+      console.log(weatherData);
+  }
+  return weatherData;
+}
+
+
 
 app.get("/", function(req, res) {
 
@@ -48,63 +76,13 @@ app.get("/", function(req, res) {
   };
   let today = date.toLocaleDateString("en-US", options);
 
-
-  //using promise to fetch data from multiple API:
-  let urls = [
-    'https://ipinfo.io/json',
-    `https://api.openweathermap.org/data/2.5/weather?q=Toronto&appid=${process.env.API_KEY}`
-  ];
-
-  Promise.all(urls.map(url => {
-    return fetch(url)
-    .then(resp =>
-       resp.json());
-  }))
-  .then(results => {
-    console.log(results[1]);
-  })
-  .catch(() => console.log(error));
-
-
-  //getting location of user by IP Address
-  request("https://ipinfo.io/json", function(error, response, body) {
-
-    let ipInfo = JSON.parse(body);
-    let location = ipInfo.city;
-    let country = ipInfo.country;
-    let lonLat = ipInfo.loc;
-    let lat = lonLat.split(",")[0];
-    let lon = lonLat.split(",")[1];
-
-    //using the IP address to get the weather
-    let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.API_KEY}`;
-
-    request(weatherUrl, function(error, response, body) {
-      let weatherInfo = JSON.parse(body);
-      let cityName = weatherInfo.name;
-      let description = weatherInfo.weather[0].description;
-      let weatherId = weatherInfo.weather[0].id;
-      let weatherIcon = weatherInfo.weather[0].icon;
-      let temp = Math.round((weatherInfo.main.temp) - 273.15);
-      let humidity = weatherInfo.main.humidity;
-      let windSpeed = weatherInfo.wind.speed;
-      let windDegree = Math.round(weatherInfo.wind.deg);
-
-
-      res.render("index", {
-        cityName: cityName,
-        country: country,
-        temp: temp,
-        humidity: humidity,
-        windSpeed: windSpeed,
-        windDegree: windDegree,
-        description: description,
-        weatherId: weatherId,
-        weatherIcon: weatherIcon,
-        today: today
-      });
+  City.find({}, function(err, cities) {
+    getWeather(cities).then(function(results){
+      res.render("index", {weatherData: results, today:today});
     });
-});
+  });
+
+
 });
 
 
