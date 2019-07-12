@@ -33,34 +33,6 @@ const City = mongoose.model("City", citySchema);
 //toronto.save();
 //london.save();
 
-async function getWeather(cities) {
-  let weatherData = [];
-
-  for (let city_obj of cities){
-    let city = city_obj.name;
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.API_KEY}`;
-
-      let responseBody = await request(url);
-      let weatherJson = JSON.parse(responseBody);
-
-      let weather = {
-        cityName: city,
-        country: weatherJson.sys.country,
-        description: weatherJson.weather[0].description,
-        weatherId: weatherJson.weather[0].id,
-        weatherIcon: weatherJson.weather[0].icon,
-        temp: Math.round((weatherJson.main.temp) - 273.15),
-        humidity: weatherJson.main.humidity,
-        windSpeed: weatherJson.wind.speed,
-        windDegree: Math.round(weatherJson.wind.deg)
-      };
-      weatherData.push(weather);
-      console.log(weatherData);
-  }
-  return weatherData;
-}
-
-
 
 app.get("/", function(req, res) {
 
@@ -76,13 +48,71 @@ app.get("/", function(req, res) {
   };
   let today = date.toLocaleDateString("en-US", options);
 
+  async function getWeather(cities) {
+    try {
+      let weatherData = [];
+
+      for (let city_obj of cities) {
+        let city = city_obj.name;
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.API_KEY}`;
+
+        let responseBody = await request(url);
+        let weatherJson = JSON.parse(responseBody);
+
+        let weather = {
+          cityName: city,
+          country: weatherJson.sys.country,
+          description: weatherJson.weather[0].description,
+          weatherId: weatherJson.weather[0].id,
+          weatherIcon: weatherJson.weather[0].icon,
+          temp: Math.round((weatherJson.main.temp) - 273.15),
+          humidity: weatherJson.main.humidity,
+          windSpeed: weatherJson.wind.speed,
+          windDegree: Math.round(weatherJson.wind.deg)
+        };
+        weatherData.push(weather);
+      }
+      return weatherData;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   City.find({}, function(err, cities) {
-    getWeather(cities).then(function(results){
-      res.render("index", {weatherData: results, today:today});
-    });
+    getWeather(cities)
+      .then(function(results) {
+        res.render("index", {
+          weatherData: results,
+          today: today
+        });
+      })
+      .catch(() => console.log(err + " City undefined."));
   });
 
+});
 
+
+app.post("/", function(req, res) {
+
+  let enteredCity = req.body.city;
+  City.findOne({
+    name: enteredCity
+  }, function(err, foundCity) {
+    if (!err) {
+      if (!foundCity) {
+        //create a new city in database
+        let newCity = new City({
+          name: enteredCity
+        });
+        newCity.save();
+        res.redirect("/");
+      } else {
+        //show the existing city in database
+        console.log("City has been added to the list already.");
+        res.redirect("/");
+      }
+    }
+  });
 });
 
 
