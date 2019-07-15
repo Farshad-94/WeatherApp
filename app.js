@@ -18,12 +18,11 @@ app.use(bodyParser.urlencoded({
 app.use(express.static("public"));
 
 
-mongoose.connect("mongodb://localhost:27017/weatherDB", {
+mongoose.connect(`mongodb+srv://admin-farshad:${process.env.password}@clusterweatherapp-do5i6.mongodb.net/weatherDB`, {
   useNewUrlParser: true
 });
 const citySchema = new mongoose.Schema({
   name: String,
-  statusCode: Number
 });
 const City = mongoose.model("City", citySchema);
 
