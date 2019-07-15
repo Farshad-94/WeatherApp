@@ -22,14 +22,13 @@ mongoose.connect("mongodb://localhost:27017/weatherDB", {
   useNewUrlParser: true
 });
 const citySchema = new mongoose.Schema({
-  name: String
+  name: String,
+  statusCode: Number
 });
 const City = mongoose.model("City", citySchema);
 
-// let lasVegas = new City ({name: "Las Vegas"});
 // let toronto = new City ({name: "Toronto"});
-// let london = new City ({name: "London"});
-//lasVegas.save();
+//let london = new City ({name: "London"});
 //toronto.save();
 //london.save();
 
@@ -49,44 +48,61 @@ app.get("/", function(req, res) {
   let today = date.toLocaleDateString("en-US", options);
 
   async function getWeather(cities) {
-    try {
+
       let weatherData = [];
+      let errorData = [];
 
       for (let city_obj of cities) {
         let city = city_obj.name;
+
         const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.API_KEY}`;
 
-        let responseBody = await request(url);
-        let weatherJson = JSON.parse(responseBody);
+        let responseBody = await fetch(url);
+        let statusCode = responseBody.status;
 
-        let weather = {
-          cityName: city,
-          country: weatherJson.sys.country,
-          description: weatherJson.weather[0].description,
-          weatherId: weatherJson.weather[0].id,
-          weatherIcon: weatherJson.weather[0].icon,
-          temp: Math.round((weatherJson.main.temp) - 273.15),
-          humidity: weatherJson.main.humidity,
-          windSpeed: weatherJson.wind.speed,
-          windDegree: Math.round(weatherJson.wind.deg)
-        };
-        weatherData.push(weather);
+        if (statusCode === 200) {
+          let weatherJson = await responseBody.json();
+          let weather = {
+            cityName: city,
+            country: weatherJson.sys.country,
+            description: weatherJson.weather[0].description,
+            weatherId: weatherJson.weather[0].id,
+            weatherIcon: weatherJson.weather[0].icon,
+            temp: Math.round((weatherJson.main.temp) - 273.15),
+            humidity: weatherJson.main.humidity,
+            windSpeed: weatherJson.wind.speed,
+            windDegree: Math.round(weatherJson.wind.deg),
+            code: weatherJson.cod
+          };
+          weatherData.push(weather);
+
+        } else if (statusCode !== 200){
+          let weatherErr = await responseBody.json();
+          let errDetail = {
+            code: weatherErr.cod,
+            message: weatherErr.message
+          };
+          errorData.push(errDetail);
+          console.log(errorData);
+        }
       }
       return weatherData;
-    } catch (err) {
-      console.log(err);
-    }
   }
+
 
   City.find({}, function(err, cities) {
     getWeather(cities)
+
       .then(function(results) {
         res.render("index", {
           weatherData: results,
           today: today
         });
+
       })
-      .catch(() => console.log(err + " City undefined."));
+      .catch((err) => {
+        console.log(err);
+      });
   });
 
 });
