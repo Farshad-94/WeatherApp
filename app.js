@@ -47,7 +47,7 @@ app.get("/", function(req, res) {
   let today = date.toLocaleDateString("en-US", options);
 
   async function getWeather(cities) {
-
+    try {
       let weatherData = [];
       let errorData = [];
 
@@ -86,6 +86,9 @@ app.get("/", function(req, res) {
         }
       }
       return weatherData;
+    } catch(err){
+      console.log(err);
+    }
   }
 
 
@@ -97,10 +100,6 @@ app.get("/", function(req, res) {
           weatherData: results,
           today: today
         });
-
-      })
-      .catch((err) => {
-        console.log(err);
       });
   });
 
