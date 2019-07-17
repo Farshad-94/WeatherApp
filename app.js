@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static("public"));
 
 
-mongoose.connect(`mongodb+srv://admin-farshad:${process.env.password}@clusterweatherapp-do5i6.mongodb.net/weatherDB`, {
+mongoose.connect("mongodb+srv://admin-farshad:Test123@clusterweatherapp-do5i6.mongodb.net/weatherDB", {
   useNewUrlParser: true
 });
 const citySchema = new mongoose.Schema({
