@@ -60,18 +60,18 @@
         <div class="col-lg-6 col-md-8 col-sm-12 weather mx-auto">
           <!-- weather-head -->
           <div class="weather-head">
-            <h1 name="location" value="location" id="location" class="text-center py-2"> <%= weather.cityName %>, <%= weather.country %> </h1>
+            <h2 name="location" value="location" id="location" class="text-center py-2 "> <%= weather.cityName %>, <%= weather.country %> </h2>
 
             <div class="row">
 
               <div id="description" class="description col text-center border border-secondary rounded py-3">
                 <i id="iconDesc" class="wi wi-owm-<%=weather.weatherId%> pt-4"></i>
                 <!-- <img class="display-3" src="http://openweathermap.org/img/wn/<%=weather.weatherIcon%>@2x.png" alt="weather-icon"> -->
-                <h3 class="text-center py-2"> <%= weather.description %> </h3>
+                <h4 class="text-center py-2 small font-weight-bold"> <%= weather.description %> </h4>
               </div>
 
               <div id="temperature" class="col text-center pt-5 border border-secondary rounded">
-                <h2> <%= weather.temp %> &degC <i id="iconThermometer" class="fas fa-thermometer-three-quarters"></i></h2>
+                <h3  class=""> <%= weather.temp %> &degC <i id="iconThermometer" class="fas fa-thermometer-three-quarters"></i></h3>
               </div>
 
             </div>
