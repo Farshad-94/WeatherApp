@@ -39,7 +39,6 @@ app.get("/", function(req, res) {
   let options = {
     day: "numeric",
     weekday: "short",
-    year: "numeric",
     month: "short",
     hour: "numeric",
     minute: "numeric"
